@@ -1,33 +1,33 @@
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    &lt;application
+    <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AMWMobileAgent"&gt;
+        android:theme="@style/Theme.AMWMobileAgent">
 
-        &lt;activity
+        <activity
             android:name=".MainActivity"
-            android:exported="true"&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name="android.intent.action.MAIN" /&gt;
-                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-        &lt;service
+        <service
             android:name=".AgentAccessibilityService"
             android:exported="false"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name="android.accessibilityservice.AccessibilityService" /&gt;
-            &lt;/intent-filter&gt;
-            &lt;meta-data
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
                 android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility_service_config" /&gt;
-        &lt;/service&gt;
+                android:resource="@xml/accessibility_service_config" />
+        </service>
 
-    &lt;/application&gt;
+    </application>
 
-&lt;/manifest&gt;
+</manifest>
