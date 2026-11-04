@@ -1,4 +1,4 @@
-&lt;resources&gt;
-    &lt;string name="app_name"&gt;AMW Mobile Agent&lt;/string&gt;
-    &lt;string name="accessibility_disclosure"&gt;This app uses Accessibility features to assist with automation. It does not record your screen, send data externally, or perform unauthorized actions. Accessibility access must be explicitly granted by the user in system settings.&lt;/string&gt;
-&lt;/resources&gt;
+<resources>
+    <string name="app_name">AMW Mobile Agent</string>
+    <string name="accessibility_disclosure">This app uses Accessibility features to assist with automation. It does not record your screen, send data externally, or perform unauthorized actions. Accessibility access must be explicitly granted by the user in system settings.</string>
+</resources>
