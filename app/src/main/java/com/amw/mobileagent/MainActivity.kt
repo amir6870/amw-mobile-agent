@@ -1,18 +1,21 @@
 package com.amw.mobileagent
 
+import android.accessibilityservice.AccessibilityService
+import android.content.ComponentName
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.accessibility.AccessibilityManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
@@ -20,13 +23,31 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen()
+            MaterialTheme {
+                HomeScreen()
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh accessibility status on resume
     }
 }
 
 @Composable
 fun HomeScreen() {
+    val context = LocalContext.current
+    val accessibilityManager = context.getSystemService(AccessibilityService.ACCESSIBILITY_SERVICE) as? AccessibilityService
+    val serviceEnabled = remember {
+        val enabledServices = Settings.Secure.getString(
+            context.contentResolver,
+            Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: ""
+        val componentName = ComponentName(context, AgentAccessibilityService::class.java).flattenToShortString()
+        enabledServices.contains(componentName)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,10 +61,13 @@ fun HomeScreen() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "This app uses Accessibility features to assist with automation. " +
-                    "It runs locally and does not transmit data externally. " +
-                    "Accessibility permissions must be explicitly granted by the user.",
+            text = if (serviceEnabled) "Accessibility service is enabled." else "Accessibility service is NOT enabled.",
             style = MaterialTheme.typography.bodyMedium
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "No actions are performed unless you explicitly enable the accessibility service.",
+            style = MaterialTheme.typography.bodySmall
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
